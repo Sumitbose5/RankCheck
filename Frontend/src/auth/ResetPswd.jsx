@@ -14,7 +14,7 @@ export const ResetPassword = () => {
             console.log("Inside reset pswd controllwe")
             setLoading(true);
 
-            const res = await fetch("http://localhost:3000/auth/reset-pswd", {
+            const res = await fetch("https://rank-check.vercel.app/auth/reset-pswd", {
                 method: "POST",
                 credentials: "include", // Allow cookies to be sent and received
                 headers: { "Content-Type": "application/json" },

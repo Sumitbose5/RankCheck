@@ -46,7 +46,7 @@ export const MarksControl = () => {
         setLoading(true);
         try {
             const res = await toast.promise(
-                axios.post("http://localhost:3000/student/fetchMarks",
+                axios.post("https://rank-check.vercel.app/student/fetchMarks",
                     { semester: semesterClass, year: yearClass, class_name: classNameClass, rollFrom, rollTo },
                     { headers: { "Content-Type": "application/json" } }
                 ).then(response => {
@@ -81,7 +81,7 @@ export const MarksControl = () => {
         }
 
         try {
-            const res = await axios.post("http://localhost:3000/student/fetchSingleMarks",
+            const res = await axios.post("https://rank-check.vercel.app/student/fetchSingleMarks",
                 { semester: semesterStudent, year: yearStudent, class_name: classNameStudent, singleRoll },
                 { headers: { "Content-Type": "application/json" } }
             );

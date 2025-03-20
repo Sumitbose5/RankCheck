@@ -3,7 +3,7 @@ import axios from 'axios';
 export const fetchCompare = async (userDetails, semester) => {
     try{
         // console.log("user details inside fetchMarks : ", userDetails);
-        const res = await axios.post("http://localhost:3000/compare/res", 
+        const res = await axios.post("https://rank-check.vercel.app/compare/res", 
             { userDetails, semester }, 
             { withCredentials: true })
 

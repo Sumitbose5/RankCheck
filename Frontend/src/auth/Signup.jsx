@@ -33,7 +33,7 @@ export const Signup = () => {
     const { username, email, roll_no, password } = formData;
 
     try {
-      const res = await fetch("http://localhost:3000/auth/signup", {
+      const res = await fetch("https://rank-check.vercel.app/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, roll_no, password }), // Sending email 

@@ -20,7 +20,7 @@ export const ProtectedLayout = () => {
   // Logout function
   const logoutMutation = useMutation({ 
     mutationFn: async () => {
-      const res = await axios.get("http://localhost:3000/auth/logout", {
+      const res = await axios.get("https://rank-check.vercel.app/auth/logout", {
         withCredentials: true,
       });
       if (!res.data.success) throw new Error("Logout failed!");

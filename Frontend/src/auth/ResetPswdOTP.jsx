@@ -19,7 +19,7 @@ export const ResetPasswordOTP = () => {
             const trimmedOTP = otp.trim();
             if (!trimmedOTP) toast.error("Enter valid OTP")
 
-            const res = await fetch("http://localhost:3000/auth/reset-pswd-otp", {
+            const res = await fetch("https://rank-check.vercel.app/auth/reset-pswd-otp", {
                 method: "POST",
                 credentials: "include", // Allow cookies to be sent and received
                 headers: { "Content-Type": "application/json" },

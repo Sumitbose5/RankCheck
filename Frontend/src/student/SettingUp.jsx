@@ -27,7 +27,7 @@ export const SettingUp = () => {
             //     withCredentials: true
             // });
 
-            const res = await axios.post("http://localhost:3000/student/test1",
+            const res = await axios.post("https://rank-check.vercel.app/student/test1",
                 { roll_no },  // Request body
                 { withCredentials: true }  // Axios config (correct placement)
             );

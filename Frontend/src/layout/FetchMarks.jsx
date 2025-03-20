@@ -4,7 +4,7 @@ export const fetchMarks = async (userDetails, semester) => {
     try {
         // console.log("user details inside fetchMarks:", userDetails);
         const res = await axios.post(
-            "http://localhost:3000/student/getMarksData",
+            "https://rank-check.vercel.app/student/getMarksData",
             { userDetails, semester },
             { withCredentials: true } 
         );

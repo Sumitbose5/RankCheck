@@ -62,7 +62,7 @@ export const UserControl = () => {
   // Delete user API function
   const deleteUser = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:3000/user-control/deleteUser/${userId}`, {
+      const res = await fetch(`https://rank-check.vercel.app/user-control/deleteUser/${userId}`, {
         method: "DELETE",
       });
       if (!res.ok) {

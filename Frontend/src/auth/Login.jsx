@@ -22,7 +22,7 @@ export const Login = () => {
     const trimmedPassword = password.trim();
 
     try {
-      const res = await fetch("http://localhost:3000/auth/login", {
+      const res = await fetch("https://rank-check.vercel.app/auth/login", {
         method: "POST",
         credentials: "include", // Allow cookies to be sent and received
         headers: { "Content-Type": "application/json" },

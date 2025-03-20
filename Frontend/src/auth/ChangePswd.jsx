@@ -14,7 +14,7 @@ export const ChangePassword = () => {
         const newPswd = password.trim();
         if(!newPswd) toast.error("Enter valid password");
 
-        const res = await fetch("http://localhost:3000/auth/change-pswd", {
+        const res = await fetch("https://rank-check.vercel.app/auth/change-pswd", {
             method: "POST",
             credentials: "include", // Allow cookies to be sent and received
             headers: { "Content-Type": "application/json" },

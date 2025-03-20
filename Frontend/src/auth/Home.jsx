@@ -10,7 +10,7 @@ export const Home = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:3000/auth", {
+        const res = await fetch("https://rank-check.vercel.app/auth", {
           method: "GET",
           credentials: "include",
         });
