@@ -267,13 +267,7 @@ exports.logout = (req, res) => {
         // Clear the JWT token cookie by setting its expiration to a past date
         // res.clearCookie('newCookie');  // 'newCookie' is the name of the cookie storing the token
 
-        res.clearCookie("newCookie", {
-            httpOnly: true,
-            secure: true, // Ensure it’s cleared over HTTPS
-            sameSite: "None",
-            path: "/",
-            domain: "rank-check.vercel.app"
-        });
+        res.clearCookie('newCookie');
 
         console.log("req.cookie after clearing : ", req.cookies);
 
