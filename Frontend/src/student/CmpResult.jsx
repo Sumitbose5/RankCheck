@@ -59,7 +59,8 @@ export const CmpResult = () => {
 
             setMyData(yourMarks);
             setOtherData(otherMarks);
-
+            setLoading(false);
+            
         } catch (err) {
             console.error("Error fetching marks:", err);
             setLoading(false);
