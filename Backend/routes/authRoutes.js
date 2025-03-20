@@ -44,6 +44,6 @@ router.post("/reset-pswd-otp", resetPswdOTP);
 router.post("/change-pswd", changePassword);
 
 
-router.get("/logout", logout); 
+router.post("/logout", logout); 
 
 module.exports = router;
