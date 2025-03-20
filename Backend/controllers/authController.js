@@ -271,7 +271,8 @@ exports.logout = (req, res) => {
             httpOnly: true,
             secure: true, // Ensure it’s cleared over HTTPS
             sameSite: "None",
-            path: "/"
+            path: "/",
+            domain: "rank-check.vercel.app"
         });
 
         console.log("req.cookie after clearing : ", req.cookies);
