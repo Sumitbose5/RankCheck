@@ -9,7 +9,7 @@ exports.generateTokenAndSetCookie = (user, res) => {
         role: user.role,
     }
 
-    console.log("User inside generate token (f) : ",user)
+    console.log("User inside generate token (f) : ", user)
 
     try {
         console.log("Inside generate token function")
@@ -20,8 +20,10 @@ exports.generateTokenAndSetCookie = (user, res) => {
         let options = {
             expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),    // Token validity only for 1 day
             httpOnly: true,
-        } 
- 
+            secure: true,  // Required for HTTPS
+            sameSite: "none" // Allows cross-origin cookies
+        }
+
         // Set the cookie, but DON'T send a response
         res.cookie("newCookie", token, options);  // Just set the cookie
         console.log("TOken : ", token);
