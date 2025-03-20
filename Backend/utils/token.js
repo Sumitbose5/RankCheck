@@ -21,7 +21,7 @@ exports.generateTokenAndSetCookie = (user, res) => {
             expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),    // Token validity only for 1 day
             httpOnly: true,
             secure: true,  // Required for HTTPS
-            sameSite: "none" // Allows cross-origin cookies
+            sameSite: "None" // Allows cross-origin cookies
         }
 
         // Set the cookie, but DON'T send a response
