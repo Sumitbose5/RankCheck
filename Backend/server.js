@@ -9,9 +9,10 @@ app.use(cookieParser());
 require("dotenv").config();
 
 const corsOptions = {
-    origin: ["https://rankcheck.netlify.app", "http://localhost:5173"],
+    origin: [ "https://rankcheck.netlify.app", "http://localhost:5173" ],
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }
 
 app.use(cors(corsOptions));
