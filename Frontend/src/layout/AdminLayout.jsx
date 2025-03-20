@@ -24,6 +24,7 @@ export const AdminLayout = () => {
     },
     onSuccess: () => {
       queryClient.removeQueries(); // Safely remove queries instead of clear()
+      localStorage.clear();
       toast.success("Logged out successfully!");
       navigate("/login");
     },
