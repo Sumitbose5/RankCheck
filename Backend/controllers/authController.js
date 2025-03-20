@@ -274,6 +274,8 @@ exports.logout = (req, res) => {
             path: "/"
         });
 
+        console.log("req.cookie after clearing : ", req.cookies);
+
         // Optionally, you can also send a response to notify the user that they have logged out
         return res.status(200).json({
             success: true,
