@@ -57,6 +57,10 @@ app.get("/", (req, res) => {
     res.send("Default Route");
 });
 
+app.get("/dep-test", (req, res) => {
+    res.send("Hey there i am here!")
+})
+
 // Start Server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
