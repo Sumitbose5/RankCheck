@@ -265,7 +265,14 @@ exports.signup = async (req, res) => {
 exports.logout = (req, res) => {
     try {
         // Clear the JWT token cookie by setting its expiration to a past date
-        res.clearCookie('newCookie');  // 'newCookie' is the name of the cookie storing the token
+        // res.clearCookie('newCookie');  // 'newCookie' is the name of the cookie storing the token
+
+        res.clearCookie("newCookie", {
+            httpOnly: true,
+            secure: true, // Ensure it’s cleared over HTTPS
+            sameSite: "None",
+            path: "/"
+        });
 
         // Optionally, you can also send a response to notify the user that they have logged out
         return res.status(200).json({
