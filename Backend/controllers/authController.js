@@ -267,7 +267,7 @@ exports.logout = (req, res) => {
         // Clear the JWT token cookie by setting its expiration to a past date
         // res.clearCookie('newCookie');  // 'newCookie' is the name of the cookie storing the token
 
-        res.clearCookie('newCookie');
+        res.clearCookie('newCookie', {path: '/'});
 
         console.log("req.cookie after clearing : ", req.cookies);
 
