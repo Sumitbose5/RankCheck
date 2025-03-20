@@ -11,7 +11,8 @@ app.use(cookieParser());
 
 // CORS Configuration
 const corsOptions = {
-    origin: ["https://rankcheck.netlify.app", "http://localhost:5173"],
+    // origin: ["https://rankcheck.netlify.app", "http://localhost:5173"],
+    origin : "*",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
