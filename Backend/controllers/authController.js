@@ -265,7 +265,18 @@ exports.signup = async (req, res) => {
 exports.logout = (req, res) => {
     try {
         // Clear the JWT token cookie by setting its expiration to a past date
-        res.clearCookie('newCookie', {path: "/"});  // 'newCookie' is the name of the cookie storing the token
+        console.log("Before clearing cookie : ", req.cookies)
+
+        // res.clearCookie('newCookie', {path: "/"});  // 'newCookie' is the name of the cookie storing the token
+
+        // Method 2 -> (Changing the value of newCookie to make it inaccessible)
+        res.cookie("newCookie", "invalid_token", { 
+            httpOnly: true,
+            secure: true, 
+            sameSite: "None",
+            path: "/",
+            expires: new Date(Date.now() + 1000) // Expires in 1 second
+        });        
 
         console.log("req.cookie after clearing : ", req.cookies);
 
