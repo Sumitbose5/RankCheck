@@ -85,7 +85,7 @@ export const CmpResult = () => {
             {/* Loading Modal */}
             {loading && (
                 <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-                    <div className="bg-gray-800 p-6 rounded-lg text-center shadow-lg">
+                    <div className="bg-gray-800 p-6 rounded-lg text-center shadow-lg flex flex-col items-center">
                         <h2 className="text-xl font-bold text-yellow-400 mb-4">Comparing...</h2>
                         <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-yellow-500"></div>
                     </div>
