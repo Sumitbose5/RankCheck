@@ -7,32 +7,40 @@ export const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleChangePassword = async() => {
-    try{
+  const handleChangePassword = async () => {
+    try {
+      setLoading(true);
+      const newPswd = password.trim();
+      if (!newPswd) {
+        toast.error("Enter valid password");
+        setLoading(false);
+        return;
+      }
 
-        const newPswd = password.trim();
-        if(!newPswd) toast.error("Enter valid password");
+      const res = await fetch("http://localhost:3000/auth/change-pswd", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPswd }),
+      });
 
-        const res = await fetch("https://rank-check.vercel.app/auth/change-pswd", {
-            method: "POST",
-            credentials: "include", // Allow cookies to be sent and received
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ newPswd }), // Sending trimmed values
-        })
+      const data = await res.json();
 
-        const data = await res.json();
-
-        if(data.success) {
-            toast.success("Password changed successfully")
-            navigate("/login");
-        }
-
-    } catch(err) {
-        console.log("Error in change pswd component : ", err);
-        toast.error("Error in changing password")
+      if (data.success) {
+        toast.success("Password changed successfully");
+        navigate("/login");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      console.log("Error in change pswd component:", err);
+      toast.error("Error in changing password");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 p-4">
@@ -57,11 +65,14 @@ export const ChangePassword = () => {
             {showPassword ? <EyeOff /> : <Eye />}
           </button>
         </div>
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition cursor-pointer"
-        onClick={() => handleChangePassword()}>
-          Change Password
+        <button
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={handleChangePassword}
+          disabled={loading}
+        >
+          {loading ? "Changing..." : "Change Password"}
         </button>
       </div>
     </div>
   );
-}
+};
