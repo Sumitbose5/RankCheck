@@ -63,4 +63,3 @@ playwright-report/
 # Deployment & Hosting Files
 firebase.json
 *.firebaserc
-netlify.toml
