@@ -29,17 +29,18 @@ export const ChangePassword = () => {
       const data = await res.json();
 
       if (data.success) {
+        setLoading(false);
         toast.success("Password changed successfully");
         navigate("/login");
       } else {
+        setLoading(false);
         toast.error(data.message);
       }
     } catch (err) {
+      setLoading(false);
       console.log("Error in change pswd component:", err);
       toast.error("Error in changing password");
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   return (
