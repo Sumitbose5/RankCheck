@@ -92,7 +92,7 @@ export const Compare = () => {
               onChange={(e) => setOther(e.target.value)}
               value={other}
               required
-              placeholder="Enter your name or ID"
+              placeholder="Enter opponent username or Roll No."
               className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
           ) : (
@@ -102,7 +102,7 @@ export const Compare = () => {
                 onChange={(e) => sets1(e.target.value)}
                 value={s1}
                 required
-                placeholder="Enter first student name or ID"
+                placeholder="Username or Roll No"
                 className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
               />
               <input
@@ -110,7 +110,7 @@ export const Compare = () => {
                 onChange={(e) => sets2(e.target.value)}
                 value={s2}
                 required
-                placeholder="Enter second student name or ID"
+                placeholder="Username or Roll No"
                 className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
               />
             </>
