@@ -19,7 +19,7 @@ export const ChangePassword = () => {
         return;
       }
 
-      const res = await fetch("http://localhost:3000/auth/change-pswd", {
+      const res = await fetch("https://rank-check.vercel.app/auth/change-pswd", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
