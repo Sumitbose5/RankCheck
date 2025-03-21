@@ -55,22 +55,28 @@ export const Leaderboard = () => {
             <tbody>
               {isFetching ? (
                 <tr>
-                  <td colSpan="3" className="p-6 text-center">
-                    <Spinner />
+                  <td colSpan="3" className="py-6">
+                    <Spinner fullScreen={false} />
                   </td>
                 </tr>
-              ) : marksData.length > 0 ? (
-                marksData.map((student, index) => (
-                  <tr key={index} className="border-t border-gray-700 hover:bg-gray-700 transition duration-200">
-                    <td className="px-4 sm:px-6 py-2 sm:py-3 text-left">{student.rank}</td>
-                    <td className="px-4 sm:px-6 py-2 sm:py-3">{student.studentName}</td>
-                    <td className="px-4 sm:px-6 py-2 sm:py-3 text-center font-semibold">{student.total_marks}</td>
-                  </tr>
-                ))
               ) : (
-                <tr>
-                  <td colSpan="3" className="p-4 text-center text-gray-400 italic">No ranks data available</td>
-                </tr>
+                marksData.length > 0 ? (
+                  marksData.map((student, index) => (
+                    <tr key={index} className="border-t border-gray-700 hover:bg-gray-700 transition duration-200">
+                      <td className="px-4 sm:px-6 py-2 sm:py-3 text-left">{student.rank}</td>
+                      <td className="px-4 sm:px-6 py-2 sm:py-3">{student.studentName}</td>
+                      <td className="px-4 sm:px-6 py-2 sm:py-3 text-center font-semibold">
+                        {student.total_marks}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="p-4 text-center text-gray-400 italic">
+                      No ranks data available
+                    </td>
+                  </tr>
+                )
               )}
             </tbody>
           </table>

@@ -12,24 +12,22 @@ const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full screen height */
-  background-color: #111827; /* Equivalent to Tailwind's bg-gray-900 */
+  ${({ fullScreen }) => (fullScreen ? "height: 100vh;" : "padding: 20px;")}
 `;
-
 
 const SpinnerCircle = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 5px solid transparent;
-  border-top: 5px solid #3b82f6; /* Blue */
-  border-right: 5px solid #a855f7; /* Purple */
+  width: 40px;
+  height: 40px;
+  border: 4px solid transparent;
+  border-top: 4px solid #3b82f6; /* Blue */
+  border-right: 4px solid #a855f7; /* Purple */
   border-radius: 50%;
-  animation: ${spin} 1s linear infinite;
+  animation: ${spin} 0.8s linear infinite;
 `;
 
-export const Spinner = () => {
+export const Spinner = ({ fullScreen = true }) => {
   return (
-    <SpinnerWrapper>
+    <SpinnerWrapper fullScreen={fullScreen}>
       <SpinnerCircle />
     </SpinnerWrapper>
   );
