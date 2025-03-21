@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProtectedLayout } from "../layout/ProtectedLayout";
+import { Spinner } from "../extras/Spinner";
 
 export const ProtectedRoute = () => {
     const [access, setAccess] = useState(null);
@@ -48,7 +49,7 @@ export const ProtectedRoute = () => {
         }
     }, [access]);
 
-    if (access === null) return <div>Loading...</div>;
+    if (access === null) return <Spinner/>;
 
     return access ? <ProtectedLayout /> : null;
 };

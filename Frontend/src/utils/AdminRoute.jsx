@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminLayout } from "../layout/AdminLayout";
+import { Spinner } from "../extras/Spinner";
 
 export const AdminRoute = () => {
     const [access, setAccess] = useState(null);
@@ -37,7 +38,7 @@ export const AdminRoute = () => {
         }
     }, [access]);
 
-    if (access === null) return <div>Loading...</div>;
+    if (access === null) return <Spinner/>;
 
     return access ? <AdminLayout /> : null;  // ✅ Correctly render nested routes
 };
