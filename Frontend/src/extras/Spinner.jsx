@@ -12,6 +12,7 @@ const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #111827; /* bg-gray-900 */
   ${({ fullScreen }) => (fullScreen ? "height: 100vh;" : "padding: 20px;")}
 `;
 
