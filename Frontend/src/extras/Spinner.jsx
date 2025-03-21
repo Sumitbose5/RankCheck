@@ -13,7 +13,9 @@ const SpinnerWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh; /* Full screen height */
+  background-color: #111827; /* Equivalent to Tailwind's bg-gray-900 */
 `;
+
 
 const SpinnerCircle = styled.div`
   width: 50px;
