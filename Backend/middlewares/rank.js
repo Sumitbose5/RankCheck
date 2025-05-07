@@ -1,66 +1,71 @@
-const User = require("../models/user");
+// sortMarks middleware
 const Marks = require("../models/marks");
 
-exports.sortMarks = async(req, res, next) => {
-    try{
+exports.sortMarks = async (req, res, next) => {
+    try {
+        // Only get marks (add filtering if needed)
+        let query = Marks.find();
 
-        // When updating the code according to sem then find only those students who are of certain sem and registration year
-        let query = Marks.find({});
-
-        if(!query) {
-            return res.status(404).json({
-                success : false,
-                message : "Marks not found!"
-            })
-        }
-
-        if(req.query.sort) {
-            query = query.sort(req.query.sort);
-        }
+        // Always sort by total_marks descending
+        query = query.sort({ total_marks: -1 });
 
         const sortedMarks = await query;
 
-        req.data = sortedMarks;
-
-        next();
-
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({
-            success : false,
-            message : err.message,
-        })
-    }
-}
-
-
-exports.assignRanksToUser = async(req, res, next) => {
-    try{
-
-        let sortedMarks = req.data;
-
-        if(!sortedMarks) {
+        if (!sortedMarks || sortedMarks.length === 0) {
             return res.status(404).json({
-                success : false,
-                message : "Sorted Marks not found in assignRanksToUser",
-            })
+                success: false,
+                message: "No marks found!",
+            });
         }
 
-        // traverse in the array sortedMarks and assign all the users 
-        // (in the marks model, because users will be created only when they sign up, so assign the ranks to the marks OBJ) 
-        // their ranks according to their position
-        for (const [index, currStudent] of sortedMarks.entries()) {
+        req.data = sortedMarks;
+        next();
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+
+// assignRanksToUser middleware
+exports.assignRanksToUser = async (req, res, next) => {
+    try {
+        const sortedMarks = req.data;
+
+        if (!sortedMarks || sortedMarks.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Sorted Marks not found in assignRanksToUser",
+            });
+        }
+
+        let prevMarks = null;
+        let rank = 1;
+
+        for (let i = 0; i < sortedMarks.length; i++) {
+            const currStudent = sortedMarks[i];
+
+            if (i > 0 && currStudent.total_marks !== prevMarks) {
+                rank++; // only increment when marks change
+            }
+
             await Marks.updateOne(
                 { rollNumber: currStudent.rollNumber },
-                { $set: { rank: index + 1 } } // Corrected index
+                { $set: { rank } }
             );
-        }        
+
+            prevMarks = currStudent.total_marks;
+        }
 
         next();
-    } catch(err) {
+    } catch (err) {
+        console.log(err);
         return res.status(500).json({
-            success : false,
-            message : err.message,
-        })
+            success: false,
+            message: err.message,
+        });
     }
-}
+};
