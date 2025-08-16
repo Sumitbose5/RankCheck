@@ -4,7 +4,8 @@ const Marks = require("../models/marks");
 exports.sortMarks = async (req, res, next) => {
     try {
         // Only get marks (add filtering if needed)
-        let query = Marks.find();
+        const { className } = req.body;
+        let query = Marks.find({class_name: className});
 
         // Always sort by total_marks descending
         query = query.sort({ total_marks: -1 });

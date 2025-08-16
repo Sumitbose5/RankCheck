@@ -16,14 +16,27 @@ const fetchData = async (roll_no, semester, class_name) => {   // get class_name
             return;
         }
 
-        console.log("SubjectObj : ", subjectObj);
-        const subjectArr = Object.keys(subjectObj)
-            .filter(key => key.startsWith("cores1p"))
-            .map((subkey, index) => ({
+        // console.log("SubjectObj : ", subjectObj);
+        const subjectArr = Array.from({ length: 6 }, (_, i) => {
+            const index = i + 1;
+            const subkey = `cores2p${index}`;
+            return {
                 name: subjectObj[subkey],
                 subjectCode: subkey,
-                marks: subjectObj[`tot${index + 1}`],
-            }));
+                marks: subjectObj[`tot${index}`],
+            };
+        }).filter(item => item.name !== undefined); // removes undefined subjects
+        
+
+        console.log("Subject Arr : ", subjectArr);
+
+        // const subjectArr = Object.keys(subjectObj)
+        //     .filter(key => key.startsWith("tot"))
+        //     .map((subkey, index) => ({
+        //         name: subjectObj[subkey],
+        //         subjectCode: subkey,
+        //         marks: subjectObj[`tot${index + 1}`],
+        //     }));
 
 
         // Add additional subject (Digital Education), (News Writing and Reporting)
@@ -31,13 +44,13 @@ const fetchData = async (roll_no, semester, class_name) => {   // get class_name
         // change -> ges1p(1) , dsc(1)a_tot
         const semINT = romanToInt(semester);
 
-        if (semINT <= 3) {
-            subjectArr.push({
-                name: subjectObj[`ges1p${semINT}`], // Replacing number dynamically
-                subjectCode: `ges1p${semINT}`, // Updating subject code
-                marks: subjectObj[`dsc${semINT}a_tot`], // Updating marks key
-            });
-        }
+        // if (semINT <= 3) {
+        //     subjectArr.push({
+        //         name: subjectObj[`ges1p${semINT}`], // Replacing number dynamically
+        //         subjectCode: `ges1p${semINT}`, // Updating subject code
+        //         marks: subjectObj[`dsc${semINT}a_tot`], // Updating marks key
+        //     });
+        // }
 
 
 
