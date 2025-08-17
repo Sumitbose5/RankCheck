@@ -75,7 +75,7 @@ export const CmpResult = () => {
     }, []);
 
 
-    const winnerName = myData?.rank < otherData?.rank ? myData?.studentName : otherData?.studentName;
+    const winnerName = myData?.total_marks === otherData?.total_marks ? "It's a tie" : (myData?.rank < otherData?.rank ? myData?.studentName : otherData?.studentName);
     const subjectMarks1 = myData?.subjectMarks;
     const subjectMarks2 = otherData?.subjectMarks;
 
