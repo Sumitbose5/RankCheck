@@ -142,7 +142,7 @@ export const CmpResult = () => {
                 shadow-lg border border-gray-700"
             >
                 <h3 className="text-xl font-semibold text-gray-200 tracking-wide">
-                    🏆 <span className="text-yellow-400 font-bold">{winnerName}</span> is the Winner!
+                    🏆 <span className="text-yellow-400 font-bold">{winnerName}</span>{winnerName !== "It's a tie" ? " is the Winner!" : ""}
                 </h3>
             </div>
 
