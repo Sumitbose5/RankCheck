@@ -4,9 +4,9 @@ const Marks = require("../models/marks");
 exports.getLeaderboard = async(req, res) => {
     try{
         // sort data
-        const class_name = req.query.cname;
+        const regyear = req.query.reg;
         const sem = req.query.sem;
-        let query = Marks.find({class_name, sem});
+        let query = Marks.find({regyear, sem});
 
         if(req.query.sort) {
             query = query.sort(req.query.sort); 

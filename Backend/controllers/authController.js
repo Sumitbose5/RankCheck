@@ -38,6 +38,15 @@ exports.login = async (req, res) => {
             // console.log("Inside OTP verification, res.cookie:", req.cookies);
             const username = user.username;
             const class_name = user.class_name;
+            const roll_no = user.roll_no;
+            const getRegYear = await Marks.findOne({rollNumber: roll_no});
+            if(!getRegYear) {
+                return res.status(400).json({
+                    success : false,
+                    message : "Marks not found!"
+                })
+            }
+            const regyear = getRegYear.regyear;
 
             // Redirect based on role
             if (user.role === "Admin") {
@@ -45,6 +54,8 @@ exports.login = async (req, res) => {
                     success: true,
                     username,
                     class_name,
+                    regyear,
+                    roll_no,
                     message: "You are allowed to access the Admin Panel",
                     role: "Admin",
                     user,
@@ -54,6 +65,8 @@ exports.login = async (req, res) => {
                     success: true,
                     username,
                     class_name,
+                    regyear,
+                    roll_no,
                     message: "You are allowed to access the Student Panel",
                     role: "Student",
                     user,
@@ -135,6 +148,14 @@ exports.otpVerification = async (req, res) => {
         console.log("Inside OTP verification, res.cookie:", req.cookies);
         const nameOfUser = user.username;
         const role = "Student";
+        const getRegYear = await Marks.findOne({rollNumber: roll_no});
+        if(!getRegYear) {
+            return res.status(400).json({
+                success : false,
+                message : "Marks not found!"
+            })
+        }
+        const regyear = getRegYear.regyear;
 
         // Redirect based on role 
         if (user.role === "Admin") {
@@ -142,6 +163,8 @@ exports.otpVerification = async (req, res) => {
                 success: true,
                 nameOfUser,
                 role,
+                regyear,
+                roll_no,
                 message: "You are allowed to access the Admin Panel",
                 role: "Admin",
                 user,
@@ -150,6 +173,8 @@ exports.otpVerification = async (req, res) => {
             return res.status(200).json({
                 success: true,
                 nameOfUser,
+                regyear,
+                roll_no,
                 message: "You are allowed to access the Student Panel",
                 role: "Student",
                 user,

@@ -33,7 +33,7 @@ export const OTP = () => {
             if (res.ok) {
                 toast.success("Logged in successfully!");
                 if (data?.nameOfUser && data?.role) {
-                    updateUser({ userInfo: data.nameOfUser, role: data.role });
+                    updateUser({ userInfo: data.nameOfUser, role: data.role, regyear: data.regyear, rollNo: data.roll_no });
                 }
                 if (data.role === "Admin") {
                     navigate("/admin/marks-control");

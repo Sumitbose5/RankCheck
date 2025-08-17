@@ -7,7 +7,7 @@ exports.sortMarks = async (req, res, next) => {
         const { className } = req.body;
         let query = Marks.find({class_name: className});
 
-        // Always sort by total_marks descending
+        // Sort by total_marks as number (descending)
         query = query.sort({ total_marks: -1 });
 
         const sortedMarks = await query;
@@ -35,6 +35,7 @@ exports.sortMarks = async (req, res, next) => {
 exports.assignRanksToUser = async (req, res, next) => {
     try {
         const sortedMarks = req.data;
+        const { className } = req.body;
 
         if (!sortedMarks || sortedMarks.length === 0) {
             return res.status(404).json({
@@ -44,21 +45,26 @@ exports.assignRanksToUser = async (req, res, next) => {
         }
 
         let prevMarks = null;
-        let rank = 1;
+        let currentRank = 1;
 
         for (let i = 0; i < sortedMarks.length; i++) {
             const currStudent = sortedMarks[i];
+            const currentMarks = currStudent.total_marks;
 
-            if (i > 0 && currStudent.total_marks !== prevMarks) {
-                rank++; // only increment when marks change
+            if (i > 0 && currentMarks !== prevMarks) {
+                currentRank = i + 1;
             }
 
             await Marks.updateOne(
-                { rollNumber: currStudent.rollNumber },
-                { $set: { rank } }
+                { 
+                    rollNumber: currStudent.rollNumber,
+                    class_name: className,
+                    sem: currStudent.sem
+                },
+                { $set: { rank: currentRank } }
             );
 
-            prevMarks = currStudent.total_marks;
+            prevMarks = currentMarks;
         }
 
         next();

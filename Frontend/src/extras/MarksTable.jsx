@@ -7,7 +7,7 @@ export const MarksTable = () => {
   
     useEffect(() => {
       // Fetch marks data from API
-      fetch("http://localhost:3000/") // Replace with actual API endpoint
+      fetch("https://rank-check.vercel.app/") // Replace with actual API endpoint
         .then((response) => response.json())
         .then((data) => {
           setMarksData(data.marks); // Assuming API returns { marks: [...] }

@@ -2,48 +2,48 @@ import { useEffect, useState } from "react";
 import { useHeader } from "../context/HeaderContext";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Spinner } from "../extras/Spinner";
-import { fetchRank } from "../utils/FetchRanks";
-import { Dropdown } from "../extras/Dropdown";
 import { useUser } from "../context/UserContext";
+import axios from 'axios';
 
-const semesters = ["I", "II", "III", "IV", "V", "VI"];
+const fetchOverallMarks = async (pageNumber, regyear) => {
+  try {
+    const res = await axios.get(`https://rank-check.vercel.app/student/get-overall-leaderboard/${regyear}?page=${pageNumber}&limit=10`, 
+      { withCredentials: true });
+    return res.data || [];
+  } catch (err) {
+    console.log("Error in fetch overall marks: ", err);
+    throw err;
+  }
+};
 
-export const Leaderboard = () => {
+const OverallMarks = () => {
   const { setHeaderText } = useHeader();
   const [pageNumber, setPageNumber] = useState(1);
-  const [semester, setSemester] = useState("I");
   const { userData } = useUser();
   
-  const class_name = userData?.class_name || "Not Available";
   const regyear = userData?.regyear || "Not Available";
 
   useEffect(() => {
-    setHeaderText("Leaderboard");
+    setHeaderText("Overall Marks");
   }, [setHeaderText]);
 
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: ['rankPages', pageNumber, semester],
-    queryFn: () => fetchRank(pageNumber, regyear, semester),
+    queryKey: ['overallMarks', pageNumber, regyear],
+    queryFn: () => fetchOverallMarks(pageNumber, regyear),
     staleTime: 1000 * 60 * 10,
     placeholderData: keepPreviousData,
   });
 
   const marksData = data?.marks || [];
-  const totalPages = 6; // Adjust this dynamically if needed
+  const totalPages = 6;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4 sm:p-6">
       <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-2xl p-4 sm:p-6 border border-gray-700">
-        {/* Header Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 items-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-200 tracking-wide">🏆 Leaderboard</h2>
-            <span className="text-xs sm:text-sm sm:hidden block rounded-lg text-gray-100 font-semibold">Semester</span>
-          </div>
-          <Dropdown options={semesters} onSelect={setSemester} width="w-25" selected={semester} />
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-200 tracking-wide">📊 Overall Marks</h2>
         </div>
 
-        {/* Responsive Table */}
         <div className="overflow-x-auto rounded-lg">
           <table className="w-full border border-gray-700 rounded-lg overflow-hidden text-xs sm:text-sm md:text-base">
             <thead>
@@ -67,14 +67,14 @@ export const Leaderboard = () => {
                       <td className="px-4 sm:px-6 py-2 sm:py-3 text-left">{student.rank}</td>
                       <td className="px-4 sm:px-6 py-2 sm:py-3">{student.studentName}</td>
                       <td className="px-4 sm:px-6 py-2 sm:py-3 text-center font-semibold">
-                        {student.total_marks}
+                        {student.marks}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
                     <td colSpan="3" className="p-4 text-center text-gray-400 italic">
-                      No ranks data available
+                      No overall marks data available
                     </td>
                   </tr>
                 )
@@ -83,7 +83,6 @@ export const Leaderboard = () => {
           </table>
         </div>
 
-        {/* Pagination Controls */}
         <div className="flex justify-center items-center gap-3 sm:gap-4 mt-4 sm:mt-6">
           <button
             className={`px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm transition-all ${pageNumber === 1 || isFetching ? "bg-gray-600 cursor-not-allowed opacity-60" : "bg-indigo-600 hover:bg-indigo-500 cursor-pointer"}`}
@@ -107,3 +106,5 @@ export const Leaderboard = () => {
     </div>
   );
 };
+
+export default OverallMarks;

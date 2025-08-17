@@ -3,6 +3,7 @@ const router = express.Router();
 
 // import middlewares
 const { getMarksFromUniAPI, marksOperations, provideMarksData, getRollNo, getMarksDataforLogin, fetchRegNo } = require('../controllers/marksController');
+const { calculateOverallMarks, assignOverallRank, getOverallLeaderboard } = require('../controllers/overallMarks');
 
 // Get marks of students
 router.post("/fetchMarks", getMarksFromUniAPI);
@@ -16,5 +17,11 @@ router.get("/getRollNo", getRollNo);
 router.post("/getMarksData", getMarksDataforLogin);
 
 router.get("/fetchRegNo", fetchRegNo);
+
+router.get("/singleUse", calculateOverallMarks);
+
+router.get("/assign-overall-ranks", assignOverallRank);
+
+router.get("/get-overall-leaderboard/:regyear", getOverallLeaderboard)
 
 module.exports = router;

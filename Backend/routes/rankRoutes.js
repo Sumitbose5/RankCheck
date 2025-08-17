@@ -6,7 +6,7 @@ const { sortMarks, assignRanksToUser } = require("../middlewares/rank")
 
 router.get("/getRanks", getLeaderboard);
 
-router.get("/assignRank", sortMarks, assignRanksToUser, (req, res) => {
+router.post("/assignRank", sortMarks, assignRanksToUser, (req, res) => {
     return res.status(200).json({
         success : true,
         message : "ranks updated successfully!"

@@ -174,7 +174,7 @@ exports.marksOperations = async (req, res) => {
         let class_name = "";
 
         let checkMarks = await Marks.findOne({ rollNumber: roll_no, sem: semester[0] });
-        console.log("Marks for sem 1 : ", checkMarks);
+        // console.log("Marks for sem 1 : ", checkMarks);
 
         if (!checkMarks) {
             return res.status(401).json({
@@ -321,14 +321,15 @@ exports.getMarksDataforLogin = async (req, res) => {
         const percentage = ((total_marks / 500) * 100).toFixed(2);
         const rank = marks.rank;
         const class_name = marks.class_name;
+        const reg_year = marks.regyear;
 
 
         // get the ranker's total_marks
-        const rank1 = await Marks.findOne({ rank: 1 });
+        const rank1 = await Marks.findOne({ rank: 1, regyear: reg_year, sem: semester });
         const rank1tot_marks = rank1.total_marks;
-        const rank3 = await Marks.findOne({ rank: 3 });
+        const rank3 = await Marks.findOne({ rank: 3, regyear: reg_year, sem: semester });
         const rank3tot_marks = rank3.total_marks;
-        const rank10 = await Marks.findOne({ rank: 10 });
+        const rank10 = await Marks.findOne({ rank: 10, regyear: reg_year, sem: semester });
         const rank10tot_marks = rank10.total_marks;
 
         return res.status(200).json({

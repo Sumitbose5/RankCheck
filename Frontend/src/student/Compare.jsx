@@ -92,7 +92,7 @@ export const Compare = () => {
               onChange={(e) => setOther(e.target.value)}
               value={other}
               required
-              placeholder="Enter opponent username or Roll No."
+              placeholder="Enter classmate username or Roll No."
               className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
           ) : (

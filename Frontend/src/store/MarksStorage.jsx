@@ -20,7 +20,7 @@ export const useMarksStore = create(
 
         set({ loading: true, error: null });
         try {
-          const res = await fetch(`http://localhost:3000/student/getMarks`, {
+          const res = await fetch(`https://rank-check.vercel.app/student/getMarks`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

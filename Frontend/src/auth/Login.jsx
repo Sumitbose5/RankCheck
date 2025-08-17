@@ -35,7 +35,7 @@ export const Login = () => {
         toast.success("Logged in successfully!");
 
         if (resget?.username && resget?.class_name && resget?.role) {
-          updateUser({ userInfo: resget.username, class_name: resget.class_name, role: resget.role });
+          updateUser({ userInfo: resget.username, class_name: resget.class_name, role: resget.role, regyear: resget.regyear, rollNo: resget.roll_no });
         } else {
           console.error("nameOfUser is missing in response:", data);
         }

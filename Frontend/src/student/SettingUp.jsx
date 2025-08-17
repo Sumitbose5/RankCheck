@@ -22,7 +22,7 @@ export const SettingUp = () => {
 
     const updateUserMarks = async () => {
         try {
-            // const res = await axios.get("http://localhost:3000/student/test1", {
+            // const res = await axios.get("https://rank-check.vercel.app/student/test1", {
             //     params: { roll_no },
             //     withCredentials: true
             // });

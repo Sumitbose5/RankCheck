@@ -90,6 +90,17 @@ export const ProtectedLayout = () => {
               Compare
             </button>
           </li>
+          <li>
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/student/overall-marks");
+              }}
+              className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-blue-600 rounded-lg transition-all duration-300"
+            >
+              Overall Marks
+            </button>
+          </li>
 
           {/* Only for Admin */}
           {userRole === "Admin" && (

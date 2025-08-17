@@ -22,6 +22,7 @@ import { ResetPassword } from "./auth/ResetPswd"
 import { ResetPasswordOTP } from "./auth/ResetPswdOTP"
 import { ChangePassword } from "./auth/ChangePswd"
 import { ErrorPage } from "./extras/ErrorPage"
+import OverallMarks from "./student/OverallMarks"
 
 export const App = () => {
 
@@ -58,6 +59,7 @@ export const App = () => {
               <Route path="setup" element={<SettingUp />} />
               <Route path="compare-result" element={<CmpResult />} />
               <Route path="not-found" element={<NotFound />} />
+              <Route path="overall-marks" element={<OverallMarks />} />
             </Route>
 
             {/* Admin Routes */}
