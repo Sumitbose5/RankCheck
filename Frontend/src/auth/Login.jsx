@@ -60,15 +60,15 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex h-dvh flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-[#121212] text-gray-300">
+    <div className="flex min-h-dvh flex-1 flex-col justify-center px-4 md:px-6 py-8 md:py-12 lg:px-8 bg-[#121212] text-gray-300 font-poppins">
       {/* Home Button */}
-      <NavLink className="bg-indigo-600 hover:bg-indigo-500 w-8 p-2 rounded-md font-semibold" to="/">
+      <NavLink className="bg-indigo-600 hover:bg-indigo-500 w-8 p-2 rounded-md font-semibold transition duration-300" to="/">
         <GoHomeFill />
       </NavLink>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img alt="Your Company" src="https://i.ibb.co/Y70nqZwZ/finalimg.png" className="mx-auto h-10 w-12 rounded-full" />
-        <h2 className="mt-10 text-center text-2xl font-bold tracking-tight">Sign in to your account</h2>
+        {/* <img alt="Your Company" src="https://i.ibb.co/Y70nqZwZ/finalimg.png" className="mx-auto h-10 w-12 rounded-full" /> */}
+        <h2 className="mt-10 text-center text-2xl font-bold tracking-tight font-press-start-2p text-blue-500">Login</h2>
       </div>
 
       {/* Form Section */}
@@ -123,11 +123,10 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-md transition duration-300 cursor-pointer ${
-                loading
-                  ? "bg-indigo-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-500 text-white"
-              }`}
+              className={`flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-md transition duration-300 cursor-pointer ${loading
+                ? "bg-indigo-400 cursor-not-allowed"
+                : "bg-indigo-600 hover:bg-indigo-500 text-white"
+                }`}
             >
               {loading ? (
                 <>

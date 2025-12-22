@@ -46,9 +46,9 @@ export const ResetPasswordOTP = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900 p-4">
-            <div className="bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md text-white">
-                <h2 className="text-2xl font-semibold text-center mb-4">Enter OTP</h2>
+        <div className="flex items-center justify-center min-h-screen bg-[#121212] p-4 font-poppins">
+            <div className="bg-[#1e1e1e] p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-md text-white border border-gray-700">
+                <h2 className="text-2xl font-semibold text-center mb-4 font-press-start-2p text-blue-500">Enter OTP</h2>
                 <p className="text-gray-400 text-sm text-center mb-6">
                     Enter the OTP sent to your registered email address
                 </p>
@@ -59,11 +59,11 @@ export const ResetPasswordOTP = () => {
                         placeholder="Enter OTP"
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#121212] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                     />
                 </div>
                 <button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 cursor-pointer rounded-lg transition disabled:bg-gray-600 disabled:cursor-not-allowed"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 cursor-pointer rounded-lg transition disabled:bg-gray-600 disabled:cursor-not-allowed font-semibold"
                     onClick={handleOTPVerification}
                     disabled={loading}
                 >

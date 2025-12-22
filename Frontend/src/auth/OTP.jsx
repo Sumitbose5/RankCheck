@@ -28,7 +28,7 @@ export const OTP = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ inputOtp, email }),
             });
-            
+
             const data = await res.json();
             if (res.ok) {
                 toast.success("Logged in successfully!");
@@ -70,14 +70,14 @@ export const OTP = () => {
     };
 
     return (
-        <div className="min-h-dvh flex justify-center items-center bg-gradient-to-br from-gray-800 to-gray-950 px-4 relative">
-            <div className="flex flex-col justify-center items-center backdrop-blur-lg bg-opacity-80 border border-gray-600 w-auto h-auto md:p-10 p-4 rounded-md bg-gray-900 shadow-lg relative">
+        <div className="min-h-dvh flex justify-center items-center bg-[#121212] px-4 relative font-poppins">
+            <div className="flex flex-col justify-center items-center backdrop-blur-lg bg-opacity-80 border border-gray-700 w-auto h-auto md:p-10 p-6 rounded-md bg-[#1e1e1e] shadow-lg relative">
                 {loading && (
-                    <div className="absolute inset-0 flex justify-center items-center bg-gray-900 bg-opacity-80 rounded-md">
+                    <div className="absolute inset-0 flex justify-center items-center bg-[#121212] bg-opacity-80 rounded-md">
                         <span className="text-white text-lg font-semibold">Verifying OTP...</span>
                     </div>
                 )}
-                <h1 className="text-2xl md:text-3xl mb-5 font-semibold text-white">Verify OTP</h1>
+                <h1 className="text-2xl md:text-3xl mb-5 font-semibold text-blue-500 font-press-start-2p">Verify OTP</h1>
                 <div className="flex flex-wrap justify-center items-center gap-2 md:gap-3">
                     {otp.map((val, index) => (
                         <input key={index}
@@ -85,7 +85,7 @@ export const OTP = () => {
                             ref={(input) => (inputRefs.current[index] = input)}
                             value={val}
                             onChange={(e) => handleChange(index, e)}
-                            className="border-2 border-transparent bg-gray-700 min-w-[40px] md:w-16 md:h-16 w-12 h-12 rounded-md text-center text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-500 focus:bg-gray-800 transition"
+                            className="border-2 border-transparent bg-[#121212] min-w-[40px] md:w-16 md:h-16 w-12 h-12 rounded-md text-center text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-500 focus:bg-[#1e1e1e] transition duration-300"
                             disabled={loading}
                         />
                     ))}

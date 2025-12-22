@@ -131,7 +131,7 @@ export const MarksControl = () => {
                 </button>
             </section>
 
-            <section className="w-full max-w-lg p-8 bg-gray-800 rounded-lg shadow-lg flex flex-col">
+            {/* <section className="w-full max-w-lg p-8 bg-gray-800 rounded-lg shadow-lg flex flex-col">
                 <h2 className="text-2xl font-bold mb-6">Fetch Marks for a Single Student</h2>
                 <input type="text" placeholder="Marks Data Name" value={classNameStudent} onChange={(e) => setClassNameStudent(e.target.value)} className="w-full p-3 bg-gray-700 rounded border border-gray-600 text-white mb-4" />
                 <div className="flex flex-col gap-3 mb-4">
@@ -153,7 +153,7 @@ export const MarksControl = () => {
                 >
                     {loading ? "Fetching..." : "Fetch Marks"}
                 </button>
-            </section>
+            </section> */}
         </div>
     );
 };

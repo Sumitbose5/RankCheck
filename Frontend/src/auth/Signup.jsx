@@ -62,15 +62,15 @@ export const Signup = () => {
 
 
   return (
-    <div className="flex h-dvh flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-[#121212] text-gray-200">
+    <div className="flex min-h-dvh flex-1 flex-col justify-center px-4 md:px-6 py-8 md:py-12 lg:px-8 bg-[#121212] text-gray-200 font-poppins">
 
-      <NavLink className="bg-indigo-600 hover:bg-indigo-500 w-8 p-2 rounded-md font-semibold" to="/">
+      <NavLink className="bg-indigo-600 hover:bg-indigo-500 w-8 p-2 rounded-md font-semibold transition duration-300" to="/">
         <GoHomeFill />
       </NavLink>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-5 text-center text-2xl font-bold tracking-tight">
-          Register Now
+        <h2 className="mt-5 text-center text-2xl font-bold tracking-tight font-press-start-2p text-blue-500">
+          Register
         </h2>
       </div>
 
@@ -91,7 +91,7 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="off"
-                className="block w-full rounded-md bg-gray-800 px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="on"
-                className="block w-full rounded-md bg-gray-800 px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="off"
-                className="block w-full rounded-md bg-gray-800 px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ export const Signup = () => {
                 required
                 onChange={handleChange}
                 autoComplete="current-password"
-                className="block w-full rounded-md bg-gray-800 px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm pr-10"
+                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm pr-10 transition duration-300"
               />
               {/* Eye Icon */}
               <span
@@ -166,7 +166,7 @@ export const Signup = () => {
             ) : (
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm cursor-pointer font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm cursor-pointer font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-600 transition duration-300"
               >
                 Register
               </button>
