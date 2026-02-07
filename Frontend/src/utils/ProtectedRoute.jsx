@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ProtectedLayout } from "../layout/ProtectedLayout";
 import { Spinner } from "../extras/Spinner";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const ProtectedRoute = () => {
     const [access, setAccess] = useState(null);
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ export const ProtectedRoute = () => {
 
         const checkAccess = async () => {
             try {
-                const response = await fetch("https://rank-check.vercel.app/auth/dashboard", {
+                const response = await fetch(`${VITE_BASE_URL}/auth/dashboard`, {
                     method: "GET",
                     credentials: "include"
                 });

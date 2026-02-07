@@ -1,35 +1,39 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-// Spin Animation
-const spin = keyframes`
+// Chunky, Stuttery Spin Animation
+const chunkySpin = keyframes`
   0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
   100% { transform: rotate(360deg); }
 `;
 
-// Styled Spinner Component
 const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #111827; /* bg-gray-900 */
-  ${({ fullScreen }) => (fullScreen ? "height: 100vh;" : "padding: 20px;")}
+  background-color: transparent; 
+  ${({ fullScreen }) => (fullScreen ? "height: 100vh; background-color: #09090b;" : "padding: 20px;")}
 `;
 
-const SpinnerCircle = styled.div`
+const SquareSpinner = styled.div`
   width: 40px;
   height: 40px;
-  border: 4px solid transparent;
-  border-top: 4px solid #3b82f6; /* Blue */
-  border-right: 4px solid #a855f7; /* Purple */
-  border-radius: 50%;
-  animation: ${spin} 0.8s linear infinite;
+  background-color: #22c55e; /* Neon Lime */
+  border: 4px solid white;
+  /* This creates the "Funky" 3D shadow effect */
+  box-shadow: 8px 8px 0px #ec4899; /* Hot Pink Shadow */
+  
+  /* steps(1) makes the rotation "jump" instead of sliding */
+  animation: ${chunkySpin} 0.6s steps(1) infinite;
 `;
 
 export const Spinner = ({ fullScreen = true }) => {
   return (
     <SpinnerWrapper fullScreen={fullScreen}>
-      <SpinnerCircle />
+      <SquareSpinner />
     </SpinnerWrapper>
   );
 };

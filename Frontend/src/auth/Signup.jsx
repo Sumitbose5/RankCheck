@@ -6,6 +6,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GoHomeFill } from "react-icons/go";
 import { useUser } from "../context/UserContext";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const Signup = () => {
 
   const [formData, setFormData] = useState({ username: "", email: "", roll_no: "", password: "" });
@@ -33,7 +35,7 @@ export const Signup = () => {
     const { username, email, roll_no, password } = formData;
 
     try {
-      const res = await fetch("https://rank-check.vercel.app/auth/signup", {
+      const res = await fetch(`${VITE_BASE_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, roll_no, password }), // Sending email 
@@ -62,27 +64,37 @@ export const Signup = () => {
 
 
   return (
-    <div className="flex min-h-dvh flex-1 flex-col justify-center px-4 md:px-6 py-8 md:py-12 lg:px-8 bg-[#121212] text-gray-200 font-poppins">
+    <div className="flex min-h-dvh flex-col justify-center px-4 md:px-6 py-8 md:py-12 bg-zinc-950 text-white font-mono selection:bg-pink-500">
 
-      <NavLink className="bg-indigo-600 hover:bg-indigo-500 w-8 p-2 rounded-md font-semibold transition duration-300" to="/">
-        <GoHomeFill />
+      {/* Home Button - Chunky Style */}
+      <NavLink
+        className="fixed top-6 left-6 bg-white text-black p-3 border-4 border-black shadow-[4px_4px_0px_000] hover:bg-lime-400 hover:-translate-y-1 hover:shadow-[6px_6px_0px_000] transition-all duration-200 z-10"
+        to="/"
+      >
+        <GoHomeFill size={24} />
       </NavLink>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-5 text-center text-2xl font-bold tracking-tight font-press-start-2p text-blue-500">
-          Register
-        </h2>
-      </div>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        {/* Main Signup Card */}
+        <div className="bg-zinc-900 border-4 border-white p-8 shadow-[12px_12px_0px_0px_#ec4899] relative">
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form method="POST" className="space-y-4" onSubmit={handleFormSubmit}>
+          {/* Top Header */}
+          <div className="mb-8 text-center">
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter inline-block bg-white text-black px-4 py-1 rotate-1">
+              NEW_RECRUIT
+            </h2>
+            <p className="mt-4 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+          // JOIN_THE_RANKINGS_SYSTEM
+            </p>
+          </div>
 
-          {/* Username */}
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium">
-              Username
-            </label>
-            <div className="mt-2">
+          <form method="POST" className="space-y-4" onSubmit={handleFormSubmit}>
+
+            {/* Username */}
+            <div>
+              <label htmlFor="username" className="block text-xs font-black uppercase text-pink-500 mb-1 ml-1">
+                Handle_Name
+              </label>
               <input
                 id="username"
                 name="username"
@@ -91,17 +103,16 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="off"
-                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
+                placeholder="USER_01"
+                className="block w-full bg-zinc-800 border-4 border-white px-4 py-3 text-white font-bold focus:outline-none focus:bg-zinc-700 focus:border-lime-400 transition-all placeholder:text-zinc-600"
               />
             </div>
-          </div>
 
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email address
-            </label>
-            <div className="mt-2">
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-xs font-black uppercase text-pink-500 mb-1 ml-1">
+                Comm_Channel
+              </label>
               <input
                 id="email"
                 name="email"
@@ -110,17 +121,16 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="on"
-                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
+                placeholder="ABC@MAIL.COM"
+                className="block w-full bg-zinc-800 border-4 border-white px-4 py-3 text-white font-bold focus:outline-none focus:bg-zinc-700 focus:border-cyan-400 transition-all placeholder:text-zinc-600"
               />
             </div>
-          </div>
 
-          {/* Roll Number */}
-          <div>
-            <label htmlFor="roll_no" className="block text-sm font-medium">
-              Roll Number
-            </label>
-            <div className="mt-2">
+            {/* Roll Number */}
+            <div>
+              <label htmlFor="roll_no" className="block text-xs font-black uppercase text-pink-500 mb-1 ml-1">
+                Uni_Registry_ID
+              </label>
               <input
                 id="roll_no"
                 name="roll_no"
@@ -129,57 +139,62 @@ export const Signup = () => {
                 onChange={handleChange}
                 required
                 autoComplete="off"
-                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm transition duration-300"
+                placeholder="2416XXXXXXX"
+                className="block w-full bg-zinc-800 border-4 border-white px-4 py-3 text-white font-bold focus:outline-none focus:bg-zinc-700 focus:border-yellow-400 transition-all placeholder:text-zinc-600"
               />
             </div>
-          </div>
 
-          {/* Password */}
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
-            </label>
-            <div className="mt-2 relative">
-              <input
-                id="password"
-                name="password"
-                type={showPswd ? "text" : "password"}
-                required
-                onChange={handleChange}
-                autoComplete="current-password"
-                className="block w-full rounded-md bg-[#1e1e1e] px-3 py-2 text-base text-gray-200 outline-none border border-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm pr-10 transition duration-300"
-              />
-              {/* Eye Icon */}
-              <span
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-200"
-                onClick={() => setShowPswd(!showPswd)}
-              >
-                {showPswd ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-              </span>
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-xs font-black uppercase text-pink-500 mb-1 ml-1">
+                Security_Hash
+              </label>
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPswd ? "text" : "password"}
+                  required
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  className="block w-full bg-zinc-800 border-4 border-white px-4 py-3 text-white font-bold focus:outline-none focus:bg-zinc-700 focus:border-pink-500 transition-all placeholder:text-zinc-600"
+                />
+                <span
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-white hover:text-pink-500 transition-colors"
+                  onClick={() => setShowPswd(!showPswd)}
+                >
+                  {showPswd ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Submit Button */}
-          <div>
-            {loading ? (
-              <Loader text="Sending OTP..." />
-            ) : (
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm cursor-pointer font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-600 transition duration-300"
-              >
-                Register
-              </button>
-            )}
-          </div>
-        </form>
+            {/* Submit Button Area */}
+            <div className="pt-4">
+              {loading ? (
+                <div className="border-4 border-dashed border-zinc-700 p-2">
+                  <Loader text="Generating_OTP..." />
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  className="flex w-full justify-center items-center border-4 border-black bg-pink-600 text-white py-4 text-xl font-black uppercase tracking-widest shadow-[6px_6px_0px_0px_#ffffff] transition-all active:shadow-none active:translate-x-1 active:translate-y-1 cursor-pointer hover:bg-pink-500"
+                >
+                  Initialize_Account
+                </button>
+              )}
+            </div>
+          </form>
 
-        <p className="mt-10 text-center text-sm text-gray-300">
-          Already have an Account?{' '}
-          <NavLink to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-            Login
-          </NavLink>
-        </p>
+          {/* Login Link */}
+          <div className="mt-8 pt-6 border-t-2 border-dashed border-zinc-700 text-center">
+            <p className="text-sm font-bold text-zinc-500 uppercase">
+              Already_In_Database?{' '}
+              <NavLink to="/login" className="text-white hover:text-cyan-400 underline decoration-cyan-400 underline-offset-4 transition-colors">
+                Login_Now
+              </NavLink>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 

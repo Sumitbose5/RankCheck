@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "../extras/Loader";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ export const ResetPassword = () => {
             console.log("Inside reset pswd controllwe")
             setLoading(true);
 
-            const res = await fetch("https://rank-check.vercel.app/auth/reset-pswd", {
+            const res = await fetch(`${VITE_BASE_URL}/auth/reset-pswd`, {
                 method: "POST",
                 credentials: "include", // Allow cookies to be sent and received
                 headers: { "Content-Type": "application/json" },
@@ -42,34 +44,67 @@ export const ResetPassword = () => {
     }
 
     return (
-        <div className="relative flex items-center justify-center min-h-screen bg-[#121212] p-4 font-poppins">
-            <button className="absolute top-6 left-6 flex items-center text-gray-400 hover:text-white transition cursor-pointer"
-                onClick={() => navigate(-1)}>
-                <ArrowLeft className="mr-2" /> Back
+        <div className="relative flex items-center justify-center min-h-screen bg-zinc-950 p-4 font-mono selection:bg-violet-500">
+            {/* Back Button - Chunky Retro Style */}
+            <button
+                className="absolute top-8 left-8 flex items-center bg-white text-black border-4 border-black px-4 py-2 font-black uppercase tracking-tighter hover:bg-cyan-400 hover:-translate-y-1 shadow-[4px_4px_0px_000] active:shadow-none active:translate-y-1 transition-all cursor-pointer z-10"
+                onClick={() => navigate(-1)}
+            >
+                <ArrowLeft className="mr-2" strokeWidth={3} /> Back
             </button>
-            <div className="bg-[#1e1e1e] p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-md text-white border border-gray-700">
-                <h2 className="text-2xl font-semibold text-center mb-4 font-press-start-2p text-blue-500">Reset Password</h2>
-                <p className="text-gray-400 text-sm text-center mb-6">
-                    Enter your registered email address
-                </p>
-                <div className="relative mb-4">
-                    <Mail className="absolute left-3 top-3 text-gray-400" />
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#121212] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                    />
+
+            {/* Reset Card */}
+            <div className="bg-zinc-900 border-4 border-white p-8 shadow-[12px_12px_0px_0px_#8b5cf6] w-full max-w-md text-white relative">
+
+                {/* Header Decor */}
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-black uppercase italic tracking-tighter bg-violet-600 text-white inline-block px-4 py-1 -rotate-1 border-2 border-white mb-4">
+                        RECOVER_ACCESS
+                    </h2>
+                    <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                // System_Identity_Verification
+                    </p>
                 </div>
+
+                <p className="text-zinc-300 text-sm text-center mb-8 font-bold border-l-4 border-violet-500 pl-4 py-2 bg-zinc-800/50">
+                    Enter your registered email address to receive a security token.
+                </p>
+
+                {/* Input Field */}
+                <div className="relative mb-8">
+                    <label className="block text-[10px] font-black uppercase text-violet-400 mb-2 ml-1">Registry_Email</label>
+                    <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white z-10" size={20} />
+                        <input
+                            type="email"
+                            placeholder="USER@DOMAIN.COM"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full pl-12 pr-4 py-4 bg-zinc-800 border-4 border-white text-white font-black focus:outline-none focus:border-cyan-400 focus:bg-zinc-700 transition-all placeholder:text-zinc-600"
+                        />
+                    </div>
+                </div>
+
+                {/* Action Button */}
                 {loading ? (
-                    <Loader text="Sending OTP.." />
+                    <div className="border-4 border-dashed border-zinc-700 p-2">
+                        <Loader text="Generating_Token..." />
+                    </div>
                 ) : (
-                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition cursor-pointer font-semibold"
-                        onClick={() => handleEmailVerification()}>
-                        Submit
+                    <button
+                        className="w-full bg-violet-600 text-white py-4 border-4 border-black font-black uppercase tracking-widest text-xl shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:bg-violet-500 hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all cursor-pointer"
+                        onClick={() => handleEmailVerification()}
+                    >
+                        Submit_Request
                     </button>
                 )}
+
+                {/* Bottom Detail */}
+                <div className="mt-8 text-center">
+                    <span className="text-[10px] font-black text-zinc-600 uppercase italic">
+                        Secure_Handshake_Protocol_v4.2
+                    </span>
+                </div>
             </div>
         </div>
     );

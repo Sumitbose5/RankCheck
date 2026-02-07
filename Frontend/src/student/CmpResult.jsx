@@ -60,7 +60,7 @@ export const CmpResult = () => {
             setMyData(yourMarks);
             setOtherData(otherMarks);
             setLoading(false);
-            
+
         } catch (err) {
             console.error("Error fetching marks:", err);
             setLoading(false);
@@ -80,176 +80,124 @@ export const CmpResult = () => {
     const subjectMarks2 = otherData?.subjectMarks;
 
     return (
-        <div className="bg-gray-900 text-white min-h-screen p-6">
-
-            {/* Loading Modal */}
+        <div className="bg-zinc-950 text-white min-h-screen p-4 sm:p-8 font-mono selection:bg-yellow-400 selection:text-black">
+            {/* Loading Overlay - Neo-Brutalist Style */}
             {loading && (
-                <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-                    <div className="bg-gray-800 p-6 rounded-lg text-center shadow-lg flex flex-col items-center">
-                        <h2 className="text-xl font-bold text-yellow-400 mb-4">Comparing...</h2>
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-yellow-500"></div>
+                <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-[100] backdrop-blur-sm">
+                    <div className="bg-white border-4 border-black p-8 text-center shadow-[10px_10px_0px_0px_#facc15] flex flex-col items-center">
+                        <h2 className="text-2xl font-black text-black mb-4 uppercase italic">Crunching_Numbers...</h2>
+                        <div className="animate-spin h-12 w-12 border-t-4 border-b-4 border-black rounded-full"></div>
                     </div>
                 </div>
             )}
 
-            {/* Header with Back Button */}
-            <div className="relative sm:mb-6 mb-12">
-                {/* Back Button (Positioned Left) */}
+            {/* Header & Back Button */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
                 <button
                     onClick={() => navigate("/student/compare")}
-                    className="absolute left-0 z-10 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow-md cursor-pointer"
+                    className="group bg-zinc-800 border-2 border-white px-6 py-2 font-black uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[4px_4px_0px_0px_#fff] active:shadow-none active:translate-x-1 active:translate-y-1"
                 >
-                    <IoMdArrowBack className="mr-1" /> Back
+                    [←] BACK_TO_LOBBY
                 </button>
-
-
-                {/* Centered Heading (Elegant & Eye-Catching) */}
-                <h1 className="text-3xl font-bold text-center text-gray-100 tracking-wide relative sm:block hidden">
-                    <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text drop-shadow-lg">
-                        Comparison Result
-                    </span>
+                <h1 className="text-3xl font-black uppercase italic tracking-tighter bg-white text-black px-4 py-1 -rotate-1 shadow-[4px_4px_0px_0px_#8b5cf6]">
+                    Analysis_Output
                 </h1>
             </div>
 
-
-            {/* Comparison Overview */}
-            <div className="bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-700 text-center mb-2">
-                <h2 className="text-2xl md:text-3xl font-bold">
-                    <span className="text-white">{myData?.studentName}</span>
-                    {/* Versus Animation */}
-                    <style>
-                        {`
-                            @keyframes shimmer {
-                                0% { background-position: 0% 50%; }
-                                100% { background-position: 100% 50%; }
-                            }
-                        `}
-                    </style>
-
-                    <span className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
-                animate-[shimmer_2.5s_infinite_alternate] bg-[length:200%_200%]">
-                        VS
-                    </span>
-
-                    <span className="text-white">{otherData?.studentName}</span>
+            {/* Versus Header Box */}
+            <div className="bg-zinc-900 border-4 border-white p-6 mb-6 text-center shadow-[10px_10px_0px_0px_#22c55e] relative overflow-hidden">
+                <div className="absolute top-0 left-0 bg-zinc-700 text-[10px] px-2 font-black">MATCHUP_v2.0</div>
+                <h2 className="text-2xl md:text-5xl font-black uppercase tracking-tighter flex flex-wrap justify-center items-center gap-4">
+                    <span className="text-cyan-400 underline decoration-white">{myData?.studentName}</span>
+                    <span className="bg-pink-600 px-3 py-1 skew-x-12 border-2 border-black text-white italic">VS</span>
+                    <span className="text-yellow-400 underline decoration-white">{otherData?.studentName}</span>
                 </h2>
             </div>
 
-
-            {/* Winner Section */}
-            <div className="relative p-5 rounded-lg text-center mb-4 
-                bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 
-                shadow-lg border border-gray-700"
-            >
-                <h3 className="text-xl font-semibold text-gray-200 tracking-wide">
-                    🏆 <span className="text-yellow-400 font-bold">{winnerName}</span>{winnerName !== "It's a tie" ? " is the Winner!" : ""}
+            {/* Winner Banner */}
+            <div className="bg-yellow-400 border-4 border-black p-4 text-center mb-8 rotate-1 shadow-[8px_8px_0px_0px_#000]">
+                <h3 className="text-2xl font-black text-black uppercase tracking-widest italic animate-pulse">
+                    🏆 {winnerName} {winnerName !== "It's a tie" ? "DOMINATES!" : "STALEMATE!"}
                 </h3>
             </div>
 
-
-
-
-            {/* Rank & Marks */}
-            <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                    <h4 className="text-center text-lg font-semibold underline text-white sm:mb-4 mb-1">
-                        {myData?.studentName || "Your Name"}
-                    </h4>
-                    <h4 className="text-lg font-semibold">Rank: <span className="text-blue-400">{myData?.rank}</span></h4>
-                    <h4 className="text-lg font-semibold">Total Marks: <span className="text-blue-400">{myData?.total_marks}</span></h4>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                <div className="bg-zinc-800 border-4 border-cyan-400 p-6 shadow-[6px_6px_0px_0px_#22d3ee]">
+                    <h4 className="text-xl font-black uppercase mb-4 text-cyan-400 border-b-2 border-dashed border-cyan-900">P1_STATS</h4>
+                    <div className="space-y-2 font-bold uppercase">
+                        <p className="flex justify-between">Rank: <span>#{myData?.rank}</span></p>
+                        <p className="flex justify-between">Total Marks: <span className="text-2xl font-black">{myData?.total_marks}</span></p>
+                    </div>
                 </div>
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                    <h4 className="text-center text-lg font-semibold underline text-white sm:mb-4 mb-1">
-                        {otherData?.studentName || "Opponent Name"}
-                    </h4>
-                    <h4 className="text-lg font-semibold">Rank: <span className="text-blue-400">{otherData?.rank}</span></h4>
-                    <h4 className="text-lg font-semibold">Total Marks: <span className="text-blue-400">{otherData?.total_marks}</span></h4>
+                <div className="bg-zinc-800 border-4 border-yellow-400 p-6 shadow-[6px_6px_0px_0px_#facc15]">
+                    <h4 className="text-xl font-black uppercase mb-4 text-yellow-400 border-b-2 border-dashed border-yellow-900">P2_STATS</h4>
+                    <div className="space-y-2 font-bold uppercase">
+                        <p className="flex justify-between">Rank: <span>#{otherData?.rank}</span></p>
+                        <p className="flex justify-between">Total Marks: <span className="text-2xl font-black">{otherData?.total_marks}</span></p>
+                    </div>
                 </div>
             </div>
 
-            {/* Marks Table */}
-            <div className="bg-gray-900 sm:p-6 rounded-xl mt-6 shadow-lg">
-                <h3 className="text-xl font-bold mb-6 text-center text-white">📊 Subject-Wise Marks</h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Your Marks Table */}
-                    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-                        <h4 className="text-center text-lg font-semibold underline text-white mb-4">
-                            {myData?.studentName || "Your Name"}
-                        </h4>
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-gray-700 text-white">
-                                    <th className="p-3 border-b border-gray-600">Subject</th>
-                                    <th className="p-3 border-b border-gray-600">Marks</th>
+            {/* Comparison Tables Split */}
+            <div className="bg-zinc-900 border-4 border-white p-4 sm:p-8 shadow-[10px_10px_0px_0px_#ec4899] mb-10">
+                <h3 className="text-2xl font-black uppercase mb-8 italic border-b-4 border-white inline-block">Subject_Breakdown</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    {/* Table 1 */}
+                    <div className="overflow-hidden border-2 border-zinc-700">
+                        <table className="w-full text-left">
+                            <thead className="bg-cyan-400 text-black">
+                                <tr>
+                                    <th className="p-3 font-black uppercase">Subject</th>
+                                    <th className="p-3 font-black uppercase text-center">Marks</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {subjectMarks1?.length > 0 ? (
-                                    subjectMarks1.map((subject, index) => (
-                                        <tr key={index} className="hover:bg-gray-700 transition duration-300">
-                                            <td className="p-3 border border-gray-600 text-white">{subject.name}</td>
-                                            <td className="p-3 border border-gray-600 text-center text-green-400 font-semibold">
-                                                {subject.marks}
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="2" className="p-4 text-center text-gray-400">
-                                            No marks data available
-                                        </td>
+                            <tbody className="divide-y-2 divide-zinc-800">
+                                {subjectMarks1?.map((sub, i) => (
+                                    <tr key={i} className="hover:bg-zinc-800">
+                                        <td className="p-3 font-bold uppercase text-xs">{sub.name}</td>
+                                        <td className="p-3 text-center font-black text-xl text-cyan-400">{sub.marks}</td>
                                     </tr>
-                                )}
+                                ))}
                             </tbody>
                         </table>
                     </div>
-
-                    {/* Opponent's Marks Table */}
-                    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-                        <h4 className="text-center text-lg font-semibold underline text-white mb-4">
-                            {otherData?.studentName || "Opponent Name"}
-                        </h4>
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-gray-700 text-white">
-                                    <th className="p-3 border-b border-gray-600">Subject</th>
-                                    <th className="p-3 border-b border-gray-600">Marks</th>
+                    {/* Table 2 */}
+                    <div className="overflow-hidden border-2 border-zinc-700">
+                        <table className="w-full text-left">
+                            <thead className="bg-yellow-400 text-black">
+                                <tr>
+                                    <th className="p-3 font-black uppercase">Subject</th>
+                                    <th className="p-3 font-black uppercase text-center">Marks</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {subjectMarks2?.length > 0 ? (
-                                    subjectMarks2.map((subject, index) => (
-                                        <tr key={index} className="hover:bg-gray-700 transition duration-300">
-                                            <td className="p-3 border border-gray-600 text-white">{subject.name}</td>
-                                            <td className="p-3 border border-gray-600 text-center text-blue-400 font-semibold">
-                                                {subject.marks}
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="2" className="p-4 text-center text-gray-400">
-                                            No marks data available
-                                        </td>
+                            <tbody className="divide-y-2 divide-zinc-800">
+                                {subjectMarks2?.map((sub, i) => (
+                                    <tr key={i} className="hover:bg-zinc-800">
+                                        <td className="p-3 font-bold uppercase text-xs">{sub.name}</td>
+                                        <td className="p-3 text-center font-black text-xl text-yellow-400">{sub.marks}</td>
                                     </tr>
-                                )}
+                                ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-
-            {/* Graph Placeholder */}
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 sm:p-6 p-2 pt-4 rounded-2xl mt-6 text-center shadow-lg border border-gray-700">
-                <h3 className="text-xl font-semibold text-white mb-4 tracking-wide">📊 Graphical Representation</h3>
-                <p className="text-gray-400 text-sm mb-4">Compare your marks visually with an interactive chart.</p>
-                <div className="sm:p-4 bg-gray-900 rounded-lg shadow-md">
-                    <MarksComparisonChart myMarks={subjectMarks1} otherMarks={subjectMarks2} p1={myData?.studentName} p2={otherData?.studentName} />
+            {/* Graphical Section */}
+            <div className="bg-white text-black border-4 border-black p-6 shadow-[12px_12px_0px_0px_#8b5cf6]">
+                <h3 className="text-2xl font-black uppercase italic mb-6 flex items-center gap-2">
+                    <span className="bg-black text-white px-2">DATA</span> Visualizer
+                </h3>
+                <div className="bg-zinc-100 border-4 border-black p-4">
+                    <MarksComparisonChart
+                        myMarks={subjectMarks1}
+                        otherMarks={subjectMarks2}
+                        p1={myData?.studentName}
+                        p2={otherData?.studentName}
+                    />
                 </div>
             </div>
-
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useUser } from "../context/UserContext";
 
-const semesters = ["I", "II", "III", "IV", "V", "VI"]; 
+const semesters = ["I", "II", "III", "IV", "V", "VI"];
 
 export const Compare = () => {
   const [mode, setMode] = useState("self");
@@ -54,73 +54,94 @@ export const Compare = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-120">
-      <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 w-96 text-center border border-gray-300 dark:border-gray-700">
-        <p className="text-gray-700 dark:text-gray-300 mb-4 font-medium italic">
-          We don’t promote comparison, but this feature helps you track progress.
+    <div className="flex justify-center items-center min-h-[80vh] font-mono p-4">
+      <div className="bg-zinc-900 border-4 border-white shadow-[16px_16px_0px_0px_#8b5cf6] p-8 w-full max-w-md text-center relative overflow-hidden">
+
+        {/* Decorative Tag */}
+        <div className="absolute -right-12 top-6 bg-yellow-400 text-black px-12 py-1 font-black uppercase tracking-tighter rotate-45 text-xs border-2 border-black">
+          BATTLE_MODE
+        </div>
+
+        <p className="text-zinc-400 mb-6 font-bold italic text-xs uppercase tracking-widest leading-tight">
+      // Tracker: Progress  Comparison //
         </p>
 
-        {/* Toggle Buttons */}
-        <div className="flex justify-center gap-4 mb-4">
+        {/* Toggle Buttons - Neo-Brutalist Style */}
+        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
           <button
-            className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 shadow-md ${mode === "self" ? "bg-purple-600 text-white shadow-lg" : "bg-gray-200 dark:bg-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white"}`}
+            className={`px-4 py-2 border-2 border-black font-black uppercase tracking-tighter transition-all shadow-[4px_4px_0px_000] active:shadow-none active:translate-x-1 active:translate-y-1 ${mode === "self"
+                ? "bg-cyan-400 text-black"
+                : "bg-zinc-800 text-zinc-400 hover:text-white"
+              }`}
             onClick={() => setMode("self")}
           >
-            Yourself vs Others
+            ME vs THEM
           </button>
           <button
-            className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 shadow-md ${mode === "others" ? "bg-purple-600 text-white shadow-lg" : "bg-gray-200 dark:bg-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white"}`}
+            className={`px-4 py-2 border-2 border-black font-black uppercase tracking-tighter transition-all shadow-[4px_4px_0px_000] active:shadow-none active:translate-x-1 active:translate-y-1 ${mode === "others"
+                ? "bg-pink-500 text-white"
+                : "bg-zinc-800 text-zinc-400 hover:text-white"
+              }`}
             onClick={() => setMode("others")}
           >
-            Others vs Others
+            THEM vs THEM
           </button>
         </div>
 
         {/* Semester Selection */}
-        <div className="mb-4 flex flex-col items-center">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Select Semester:
+        <div className="mb-8 flex flex-col items-center">
+          <label className="block text-xs font-black text-violet-400 uppercase mb-2 italic">
+            Select_Target_Semester:
           </label>
-          <Dropdown options={semesters} onSelect={setSemester} selected={semester} width="w-25" />
+          <div className="border-4 border-white bg-zinc-800">
+            <Dropdown options={semesters} onSelect={setSemester} selected={semester} width="w-32" />
+          </div>
         </div>
 
-        {/* Input Fields */}
-        <div className="space-y-3">
+        {/* Input Fields - Chunky Style */}
+        <div className="space-y-4 relative">
           {mode === "self" ? (
-            <input
-              type="text"
-              onChange={(e) => setOther(e.target.value)}
-              value={other}
-              required
-              placeholder="Enter classmate username or Roll No."
-              className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
-            />
+            <div className="group">
+              <span className="block text-left text-[10px] font-black text-zinc-500 ml-1 mb-1">OPPONENT_ID</span>
+              <input
+                type="text"
+                onChange={(e) => setOther(e.target.value)}
+                value={other}
+                required
+                placeholder="Username / Roll No."
+                className="border-4 border-white bg-zinc-800 text-white font-black px-4 py-3 w-full focus:bg-zinc-700 focus:border-cyan-400 outline-none placeholder:text-zinc-600 transition-all"
+              />
+            </div>
           ) : (
-            <>
+            <div className="space-y-6 relative">
               <input
                 type="text"
                 onChange={(e) => sets1(e.target.value)}
                 value={s1}
                 required
-                placeholder="Username or Roll No"
-                className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                placeholder="P1 Username/Roll"
+                className="border-4 border-white bg-zinc-800 text-white font-black px-4 py-3 w-full focus:border-pink-500 outline-none transition-all"
               />
+              <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-10 bg-white text-black font-black px-2 py-1 border-2 border-black italic text-sm">
+                VS
+              </div>
               <input
                 type="text"
                 onChange={(e) => sets2(e.target.value)}
                 value={s2}
                 required
-                placeholder="Username or Roll No"
-                className="border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                placeholder="P2 Username/Roll"
+                className="border-4 border-white bg-zinc-800 text-white font-black px-4 py-3 w-full focus:border-pink-500 outline-none transition-all"
               />
-            </>
+            </div>
           )}
         </div>
 
         {/* Compare Button */}
-        <button className="mt-4 w-full bg-purple-600 cursor-pointer text-white px-4 py-2 rounded-md shadow-md hover:bg-purple-700 transition-all duration-300 font-semibold"
+        <button
+          className="mt-10 w-full bg-lime-400 text-black px-4 py-4 border-4 border-black shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all font-black uppercase tracking-widest text-xl cursor-pointer"
           onClick={mode === "self" ? handleCompareYouVSOther : handleCompareOtherVSOther}>
-          Compare
+          INITIATE_VERSUS
         </button>
       </div>
     </div>

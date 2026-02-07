@@ -18,7 +18,7 @@ router.post("/getMarksData", getMarksDataforLogin);
 
 router.get("/fetchRegNo", fetchRegNo);
 
-router.get("/singleUse", calculateOverallMarks);
+router.get("/calculate-overall-marks", calculateOverallMarks);
 
 router.get("/assign-overall-ranks", assignOverallRank);
 

@@ -3,6 +3,8 @@ import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +21,7 @@ export const ChangePassword = () => {
         return;
       }
 
-      const res = await fetch("https://rank-check.vercel.app/auth/change-pswd", {
+      const res = await fetch(`${VITE_BASE_URL}/auth/change-pswd`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

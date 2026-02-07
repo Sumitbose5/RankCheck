@@ -5,9 +5,11 @@ import { Spinner } from "../extras/Spinner";
 import { useUser } from "../context/UserContext";
 import axios from 'axios';
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const fetchOverallMarks = async (pageNumber, regyear) => {
   try {
-    const res = await axios.get(`https://rank-check.vercel.app/student/get-overall-leaderboard/${regyear}?page=${pageNumber}&limit=10`, 
+    const res = await axios.get(`${VITE_BASE_URL}/student/get-overall-leaderboard/${regyear}?page=${pageNumber}&limit=10`,
       { withCredentials: true });
     return res.data || [];
   } catch (err) {
@@ -20,7 +22,7 @@ const OverallMarks = () => {
   const { setHeaderText } = useHeader();
   const [pageNumber, setPageNumber] = useState(1);
   const { userData } = useUser();
-  
+
   const regyear = userData?.regyear || "Not Available";
 
   useEffect(() => {
@@ -38,72 +40,108 @@ const OverallMarks = () => {
   const totalPages = 6;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4 sm:p-6">
-      <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-2xl p-4 sm:p-6 border border-gray-700">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-200 tracking-wide">📊 Overall Marks</h2>
-        </div>
+    <div className="flex flex-col items-center justify-start min-h-screen bg-zinc-950 text-white p-2 xs:p-4 sm:p-8 font-mono">
+  {/* Cumulative Header - Responsive Scaling */}
+  <div className="w-full max-w-4xl mb-6 sm:mb-8 text-center sm:text-left">
+    <div className="bg-pink-600 border-4 border-white p-3 sm:p-4 shadow-[6px_6px_0px_0px_#22c55e] sm:shadow-[8px_8px_0px_0px_#22c55e] -rotate-1 inline-block">
+      <h2 className="text-xl xs:text-2xl sm:text-5xl font-black uppercase tracking-tighter text-white leading-none">
+        📊 OVERALL_STANDING
+      </h2>
+    </div>
+    <p className="mt-4 text-zinc-400 font-bold uppercase tracking-widest text-[10px] sm:text-sm px-2">
+      // Cumulative performance: All Semesters
+    </p>
+  </div>
 
-        <div className="overflow-x-auto rounded-lg">
-          <table className="w-full border border-gray-700 rounded-lg overflow-hidden text-xs sm:text-sm md:text-base">
-            <thead>
-              <tr className="bg-gradient-to-r from-purple-700 to-indigo-700 text-gray-100 text-sm sm:text-base">
-                <th className="px-4 sm:px-6 py-2 sm:py-3 text-left">Rank</th>
-                <th className="px-4 sm:px-6 py-2 sm:py-3 text-left">Student Name</th>
-                <th className="px-4 sm:px-6 py-2 sm:py-3 text-center">Total Marks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isFetching ? (
-                <tr>
-                  <td colSpan="3" className="py-6">
-                    <Spinner fullScreen={false} />
+  <div className="w-full max-w-4xl bg-zinc-900 border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] sm:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] p-3 sm:p-8 relative overflow-hidden">
+    
+    {/* Background Detail for Mobile */}
+    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none select-none">
+        <span className="text-6xl font-black italic">XP</span>
+    </div>
+
+    {/* Table Section - Optimized for small screens */}
+    <div className="overflow-x-auto border-4 border-black mb-6">
+      <table className="w-full text-left border-collapse bg-zinc-900 min-w-[320px]">
+        <thead>
+          <tr className="bg-cyan-400 text-black border-b-4 border-black">
+            <th className="px-3 py-3 sm:px-4 sm:py-4 font-black uppercase italic tracking-tighter text-xs sm:text-base">Rank</th>
+            <th className="px-3 py-3 sm:px-4 sm:py-4 font-black uppercase text-xs sm:text-base">Legend</th>
+            <th className="px-3 py-3 sm:px-4 sm:py-4 font-black uppercase text-center text-xs sm:text-base">Total_XP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {isFetching ? (
+            <tr>
+              <td colSpan="3" className="py-20 text-center">
+                <div className="inline-block animate-bounce font-black text-lg sm:text-2xl text-pink-500 uppercase italic">
+                  Syncing_Legends...
+                </div>
+              </td>
+            </tr>
+          ) : (
+            marksData.length > 0 ? (
+              marksData.map((student, index) => (
+                <tr 
+                  key={index} 
+                  className="border-b-2 border-zinc-800 hover:bg-zinc-800 transition-all group"
+                >
+                  <td className="px-3 py-4 sm:px-4 sm:py-5">
+                    <div className={`inline-block px-2 py-1 sm:px-3 sm:py-1 font-black text-sm sm:text-xl border-2 border-white 
+                      ${student.rank === 1 ? "bg-yellow-400 text-black -rotate-6" : 
+                        student.rank === 2 ? "bg-zinc-300 text-black -rotate-3" : 
+                        student.rank === 3 ? "bg-orange-400 text-black rotate-2" : "bg-black text-white"}`}>
+                      #{student.rank}
+                    </div>
+                  </td>
+                  <td className="px-3 py-4 sm:px-4 sm:py-5 font-black uppercase tracking-tight text-xs sm:text-base group-hover:text-pink-500 transition-colors truncate max-w-[100px] xs:max-w-[150px] sm:max-w-none">
+                    {student.studentName}
+                  </td>
+                  <td className="px-3 py-4 sm:px-4 sm:py-5 text-center">
+                    <span className="text-lg sm:text-2xl font-black tabular-nums bg-white text-black px-1 sm:px-2 border-2 border-black group-hover:bg-cyan-400 transition-colors">
+                      {student.marks}
+                    </span>
                   </td>
                 </tr>
-              ) : (
-                marksData.length > 0 ? (
-                  marksData.map((student, index) => (
-                    <tr key={index} className="border-t border-gray-700 hover:bg-gray-700 transition duration-200">
-                      <td className="px-4 sm:px-6 py-2 sm:py-3 text-left">{student.rank}</td>
-                      <td className="px-4 sm:px-6 py-2 sm:py-3">{student.studentName}</td>
-                      <td className="px-4 sm:px-6 py-2 sm:py-3 text-center font-semibold">
-                        {student.marks}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="3" className="p-4 text-center text-gray-400 italic">
-                      No overall marks data available
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="flex justify-center items-center gap-3 sm:gap-4 mt-4 sm:mt-6">
-          <button
-            className={`px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm transition-all ${pageNumber === 1 || isFetching ? "bg-gray-600 cursor-not-allowed opacity-60" : "bg-indigo-600 hover:bg-indigo-500 cursor-pointer"}`}
-            disabled={pageNumber === 1 || isFetching}
-            onClick={() => setPageNumber((prev) => prev - 1)}
-          >
-            ⬅ Prev
-          </button>
-          <span className="px-3 sm:px-4 py-1 sm:py-2 bg-gray-700 rounded-md text-xs sm:text-lg font-semibold">
-            {pageNumber}
-          </span>
-          <button
-            className={`px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm transition-all ${pageNumber === totalPages || isFetching ? "bg-gray-600 cursor-not-allowed opacity-60" : "bg-indigo-600 hover:bg-indigo-500 cursor-pointer"}`}
-            disabled={pageNumber === totalPages || isFetching}
-            onClick={() => setPageNumber((prev) => prev + 1)}
-          >
-            Next ➡
-          </button>
-        </div>
-      </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className="p-12 text-center font-black uppercase text-zinc-600 text-xs sm:text-sm">
+                  {"[!] NO_REGISTRY_DATA"}
+                </td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
     </div>
+
+    {/* Funky Pagination - Wrapped for Mobile */}
+    <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mt-6 sm:mt-10 mb-4">
+      <button
+        className={`px-4 py-2 sm:px-6 sm:py-2 border-4 border-black font-black uppercase text-xs sm:text-base transition-all shadow-[4px_4px_0px_000] active:translate-y-1 active:shadow-none 
+          ${pageNumber === 1 || isFetching ? "bg-zinc-800 text-zinc-600 border-zinc-600 shadow-none" : "bg-white text-black hover:bg-lime-400"}`}
+        disabled={pageNumber === 1 || isFetching}
+        onClick={() => setPageNumber((prev) => prev - 1)}
+      >
+        {"<<"} PREV
+      </button>
+
+      <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-pink-600 border-4 border-black text-white font-black text-lg sm:text-xl rotate-3 shadow-[4px_4px_0px_000]">
+        {pageNumber}
+      </div>
+
+      <button
+        className={`px-4 py-2 sm:px-6 sm:py-2 border-4 border-black font-black uppercase text-xs sm:text-base transition-all shadow-[4px_4px_0px_000] active:translate-y-1 active:shadow-none 
+          ${pageNumber === totalPages || isFetching ? "bg-zinc-800 text-zinc-600 border-zinc-600 shadow-none" : "bg-white text-black hover:bg-cyan-400"}`}
+        disabled={pageNumber === totalPages || isFetching}
+        onClick={() => setPageNumber((prev) => prev + 1)}
+      >
+        NEXT {">>"}
+      </button>
+    </div>
+  </div>
+</div>
   );
 };
 

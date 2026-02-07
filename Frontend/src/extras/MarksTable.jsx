@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const MarksTable = () => {
     const [marksData, setMarksData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -7,7 +9,7 @@ export const MarksTable = () => {
   
     useEffect(() => {
       // Fetch marks data from API
-      fetch("https://rank-check.vercel.app/") // Replace with actual API endpoint
+      fetch(`${VITE_BASE_URL}/`) // Replace with actual API endpoint
         .then((response) => response.json())
         .then((data) => {
           setMarksData(data.marks); // Assuming API returns { marks: [...] }

@@ -8,6 +8,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const ProtectedLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { headerText } = useHeader();
@@ -18,9 +20,9 @@ export const ProtectedLayout = () => {
   const userRole = userData?.role;
 
   // Logout function
-  const logoutMutation = useMutation({ 
+  const logoutMutation = useMutation({
     mutationFn: async () => {
-      const res = await axios.post("https://rank-check.vercel.app/auth/logout", {}, {
+      const res = await axios.post(`${VITE_BASE_URL}/auth/logout`, {}, {
         withCredentials: true,
       });
       if (!res.data.success) throw new Error("Logout failed!");
@@ -38,105 +40,104 @@ export const ProtectedLayout = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full bg-gray-800 p-4 flex justify-between items-center z-50 shadow-md">
-        <button onClick={() => setIsOpen(!isOpen)} className="p-2 cursor-pointer text-gray-300 hover:text-white transition-all duration-300">
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col font-mono selection:bg-cyan-400 selection:text-black">
+      {/* Funky Student Navbar */}
+      <nav className="fixed top-0 left-0 w-full bg-zinc-900 p-4 flex justify-between items-center z-50 border-b-4 border-white shadow-[0_4px_0_0_#22c55e]">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 bg-white text-black border-2 border-black hover:bg-cyan-400 transition-all active:translate-y-1 active:shadow-none shadow-[4px_4px_0px_000] cursor-pointer"
+        >
+          {isOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
         </button>
 
-        <h1 className="text-3xl font-extrabold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent tracking-wide drop-shadow-md">
-          {headerText}
+        <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic">
+          <span className="bg-cyan-400 text-black px-2 mr-1">Rank</span>
+          <span className="text-white">Check</span>
         </h1>
 
-        <NavLink to="#" className="text-gray-300 hover:text-white transition-all duration-300">
-          <MdHelp size={24} />
+        <NavLink to="#" className="bg-yellow-400 p-2 border-2 border-white hover:rotate-3 transition shadow-[3px_3px_0px_000]">
+          <MdHelp size={24} className="text-black" />
         </NavLink>
       </nav>
 
-      {/* Sidebar Dropdown */}
-      <div className={`fixed top-16 left-4 bg-gray-800 shadow-lg rounded-lg p-4 w-48 z-50 transition-transform duration-300 ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-60 opacity-0"}`}>
-        <ul className="space-y-2">
+      {/* Sidebar Dropdown - High Contrast Pop-out */}
+      <div className={`fixed top-20 left-4 bg-zinc-900 border-4 border-white shadow-[10px_10px_0px_0px_#22c55e] p-4 w-56 z-50 transition-all duration-300 ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-[120%] opacity-0"
+        }`}>
+        <ul className="space-y-3">
           <li>
             <button
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/student/dashboard");
-              }}
-              className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-purple-600 rounded-lg transition-all duration-300"
+              onClick={() => { setIsOpen(false); navigate("/student/dashboard"); }}
+              className="w-full text-left cursor-pointer block p-3 font-bold uppercase border-2 border-transparent hover:border-white hover:bg-cyan-600 transition-all"
             >
-              Dashboard
+              {">"} Dashboard
             </button>
           </li>
           <li>
             <button
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/student/leaderboard");
-              }}
-              className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-indigo-600 rounded-lg transition-all duration-300"
+              onClick={() => { setIsOpen(false); navigate("/student/leaderboard"); }}
+              className="w-full text-left cursor-pointer block p-3 font-bold uppercase border-2 border-transparent hover:border-white hover:bg-yellow-500 hover:text-black transition-all"
             >
-              Leaderboard
+              {">"} Leaderboard
             </button>
           </li>
           <li>
             <button
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/student/compare");
-              }}
-              className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-blue-600 rounded-lg transition-all duration-300"
+              onClick={() => { setIsOpen(false); navigate("/student/compare"); }}
+              className="w-full text-left cursor-pointer block p-3 font-bold uppercase border-2 border-transparent hover:border-white hover:bg-pink-600 transition-all"
             >
-              Compare
+              {">"} Compare
             </button>
           </li>
           <li>
             <button
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/student/overall-marks");
-              }}
-              className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-blue-600 rounded-lg transition-all duration-300"
+              onClick={() => { setIsOpen(false); navigate("/student/overall-marks"); }}
+              className="w-full text-left cursor-pointer block p-3 font-bold uppercase border-2 border-transparent hover:border-white hover:bg-indigo-600 transition-all"
             >
-              Overall Marks
+              {">"} Overall Marks
             </button>
           </li>
 
-          {/* Only for Admin */}
+          {/* Switch to Admin - Special Styling */}
           {userRole === "Admin" && (
-            <li>
+            <li className="pt-2 border-t-2 border-zinc-700">
               <button
-                onClick={() => {
-                  setIsOpen(false);
-                  navigate("/admin/marks-control");
-                }}
-                className="w-full text-left cursor-pointer block p-3 bg-gray-700/50 hover:bg-blue-600 rounded-lg transition-all duration-300"
+                onClick={() => { setIsOpen(false); navigate("/admin/marks-control"); }}
+                className="w-full text-left cursor-pointer block p-3 font-black uppercase bg-white text-black border-2 border-black hover:bg-lime-400 transition-all shadow-[4px_4px_0px_000]"
               >
-                Switch to Admin
+                Go Admin Mode
               </button>
             </li>
           )}
 
           <li>
             <button
-              className="w-full text-left block cursor-pointer p-3 text-red-400 hover:bg-red-600 hover:text-white rounded-lg transition-all duration-300"
+              className="w-full text-left block cursor-pointer p-3 font-bold uppercase text-red-500 hover:bg-red-600 hover:text-white transition-all"
               onClick={() => logoutMutation.mutate()}
               disabled={logoutMutation.isPending}
             >
-              {logoutMutation.isPending ? "Logging out..." : "Logout"}
+              {logoutMutation.isPending ? "EXITING..." : "Logout_"}
             </button>
           </li>
         </ul>
       </div>
 
-      {/* Main Content */}
-      <main className="flex-1 mt-16 p-6">
-        <Outlet />
+      {/* Main Content Area */}
+      <main className="flex-1 mt-24 p-6 relative">
+        {/* Subtle Background Detail */}
+        <div className="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
+          <span className="text-9xl font-black uppercase">STUDENT_HUB</span>
+        </div>
+
+        <div className="relative z-10">
+          <Outlet />
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 p-4 text-center text-sm opacity-80 border-t border-gray-700">
-        &copy; {new Date().getFullYear()} <span className="text-purple-400 font-semibold">RankCheck</span>. All rights reserved.
+      <footer className="bg-zinc-900 border-t-4 border-white p-6 text-center">
+        <p className="font-black uppercase tracking-widest text-sm italic">
+          &copy; {new Date().getFullYear()} <span className="bg-white text-black px-1">RankCheck</span> // Keep Grinding.
+        </p>
       </footer>
     </div>
 

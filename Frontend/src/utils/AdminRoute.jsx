@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AdminLayout } from "../layout/AdminLayout";
 import { Spinner } from "../extras/Spinner";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const AdminRoute = () => {
     const [access, setAccess] = useState(null);
     const navigate = useNavigate();
@@ -10,7 +12,7 @@ export const AdminRoute = () => {
     useEffect(() => {
         const checkAccess = async () => {
             try {
-                const response = await fetch("https://rank-check.vercel.app/auth/admin-panel", {
+                const response = await fetch(`${VITE_BASE_URL}/auth/admin-panel`, {
                     method: "GET",
                     credentials: "include"
                 }); 

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const useMarksStore = create(
   persist(
     (set, get) => ({
@@ -20,7 +22,7 @@ export const useMarksStore = create(
 
         set({ loading: true, error: null });
         try {
-          const res = await fetch(`https://rank-check.vercel.app/student/getMarks`, {
+          const res = await fetch(`${VITE_BASE_URL}/student/getMarks`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

@@ -1,139 +1,97 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Loader = ({text}) => {
+const Loader = ({ text }) => {
   return (
     <StyledWrapper>
-      <div className="loader">
-        <span className="loader-text">{text}</span>
-        <span className="load" />
+      <div className="loader-container">
+        <div className="loader-box">
+          <span className="loader-text">{text || 'SYNCING_DATA'}</span>
+          <div className="progress-bar">
+            <div className="progress-fill" />
+          </div>
+        </div>
+        <div className="shadow-block" />
       </div>
     </StyledWrapper>
   );
 }
 
-
 const StyledWrapper = styled.div`
-  .loader {
-    width: full;
-    height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+
+  .loader-container {
     position: relative;
+    width: 240px;
+  }
+
+  .loader-box {
+    position: relative;
+    background: #000;
+    border: 4px solid #fff;
+    padding: 15px;
+    z-index: 2;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* The 3D "Funky" Shadow */
+  .shadow-block {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 100%;
+    height: 100%;
+    background: #22c55e; /* Lime Green shadow */
+    border: 4px solid #fff;
+    z-index: 1;
   }
 
   .loader-text {
-    position: absolute;
-    top: 0;
-    padding: 0;
-    margin: 0;
-    color: #947ddb;
-    animation: text_713 3.5s ease both infinite;
-    font-size: .8rem;
-    letter-spacing: 1px;
-  }
-
-  .load {
-    background-color: #9A79FF;
-    border-radius: 50px;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+    text-align: left;
     display: block;
-    height: 16px;
-    width: 16px;
-    bottom: 0;
-    position: absolute;
-    transform: translateX(64px);
-    animation: loading_713 3.5s ease both infinite;
+    animation: blink 0.8s steps(2) infinite;
   }
 
-  .load::before {
-    position: absolute;
-    content: "";
+  .progress-bar {
     width: 100%;
+    height: 20px;
+    background: #333;
+    border: 2px solid #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
     height: 100%;
-    background-color: #D1C2FF;
-    border-radius: inherit;
-    animation: loading2_713 3.5s ease both infinite;
+    width: 0%;
+    background: #ec4899; /* Hot Pink fill */
+    animation: load-crunch 2.5s infinite;
+    border-right: 4px solid #fff;
   }
 
-  @keyframes text_713 {
-    0% {
-      letter-spacing: 1px;
-      transform: translateX(0px);
-    }
-
-    40% {
-      letter-spacing: 2px;
-      transform: translateX(26px);
-    }
-
-    80% {
-      letter-spacing: 1px;
-      transform: translateX(32px);
-    }
-
-    90% {
-      letter-spacing: 2px;
-      transform: translateX(0px);
-    }
-
-    100% {
-      letter-spacing: 1px;
-      transform: translateX(0px);
-    }
+  @keyframes blink {
+    50% { opacity: 0.5; }
   }
 
-  @keyframes loading_713 {
-    0% {
-      width: 16px;
-      transform: translateX(0px);
-    }
-
-    40% {
-      width: 100%;
-      transform: translateX(0px);
-    }
-
-    80% {
-      width: 16px;
-      transform: translateX(64px);
-    }
-
-    90% {
-      width: 100%;
-      transform: translateX(0px);
-    }
-
-    100% {
-      width: 16px;
-      transform: translateX(0px);
-    }
+  @keyframes load-crunch {
+    0% { width: 0%; }
+    20% { width: 15%; }
+    40% { width: 45%; }
+    55% { width: 50%; }
+    75% { width: 85%; }
+    100% { width: 100%; }
   }
-
-  @keyframes loading2_713 {
-    0% {
-      transform: translateX(0px);
-      width: 16px;
-    }
-
-    40% {
-      transform: translateX(0%);
-      width: 80%;
-    }
-
-    80% {
-      width: 100%;
-      transform: translateX(0px);
-    }
-
-    90% {
-      width: 80%;
-      transform: translateX(15px);
-    }
-
-    100% {
-      transform: translateX(0px);
-      width: 16px;
-    }
-  }`;
+`;
 
 export default Loader;
